@@ -52,7 +52,7 @@ sensor_args = {
 # Connecting telemetry module
 try:
     ser = serial.Serial('/dev/ttyUSB0', 57600) #cambiar por purto serial de pixhawk
-    ser.open()
+    #ser.open()
     print "Conected to:", ser.name
 except Exception, e:
     print "Serial is not avalible..", e
@@ -60,7 +60,7 @@ except Exception, e:
 # Connecting Arduino module
 try:
     arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600)
-    arduino.open()
+    #arduino.open()
     print "Conected to:", arduino.name
 except Exception, e:
     print "Serial is not avalible..", e
