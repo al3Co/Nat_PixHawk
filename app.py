@@ -10,6 +10,7 @@ import json
 
 import smbus
 import serial
+"""
 import Adafruit_DHT
 
 arduinoData = []
@@ -47,7 +48,7 @@ sensor_args = {
                 '22': Adafruit_DHT.DHT22,
                 '2302': Adafruit_DHT.AM2302
               }
-
+"""
 # Connecting telemetry module
 try:
     arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600)
@@ -128,7 +129,7 @@ def set_mode(mode):
 def takeoff(t):
     vehicle.commands.takeoff(t)
     print "takeoff at " + str(t)
-
+"""
 # Function to read SPI data from MCP3008 chip
 # Channel must be an integer 0-7
 def ReadChannel(channel):
@@ -142,8 +143,8 @@ def ConvertVolts(data,places):
   volts = (data * 3.3) / float(1023)
   volts = round(volts,places)
   return volts
- 
-
+  
+"""
 
 # END: GENERAL FUNCTIONS
 
