@@ -12,6 +12,9 @@ import smbus
 import serial
 import Adafruit_DHT
 
+conectado = False
+arduinoData = []
+
 bus = smbus.SMBus(1)
 
 # Open SPI bus
@@ -48,7 +51,11 @@ sensor_args = {
 
 # Connecting telemetry module
 try:
+    global conectado
+    # CAMBIAR A DIRECCIÓN FISICA
+    arduino = serial.Serial('/dev/ttyUSB0',baudrate=9600, timeout = 3.0)
     ser = serial.Serial('/dev/ttyUSB0', 57600, timeout=5)#cambiar por purto serial de pixhawk
+    conectado = True
 except e:
     print "Serial is not avalible."
 
@@ -66,6 +73,13 @@ except Exception, e:
    print "Error to Connect"
 
 # BGN: GENERAL FUNCTIONS
+
+def readArduinoData():
+    global conectado
+    if conectado:
+        incomingData = arduino.readline()
+        print incomingData
+        # serparar y guardar en vector = arduinoData
 
 def writeNumber(value):
     bus.write_byte(address, int(value))
@@ -142,6 +156,8 @@ def main():
             vel = str(vehicle.velocity)
             ground_speed = str(vehicle.groundspeed)
             air_speed = str(vehicle.airspeed)
+            
+            readArduinoData()
 
             print "Mode: %s" % mode
             print "Latitud: " + str(lat)
