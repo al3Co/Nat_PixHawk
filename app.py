@@ -103,13 +103,15 @@ def readArduinoData():
         pass
 
 def readDataArduino():
-    print "Reading Arduino ..."
+    #print "Reading Arduino ..."
     texto=''
     arduino.write(b'B')
     time.sleep(0.1)
     while arduino.inWaiting() > 0 :
         texto += arduino.read(1) #es suma compuesta
     print texto
+    data = texto.split(',')
+    print data
     texto = ''
 
 
