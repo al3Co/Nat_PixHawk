@@ -109,10 +109,11 @@ def readDataArduino():
     time.sleep(0.1)
     while arduino.inWaiting() > 0 :
         texto += arduino.read(1) #es suma compuesta
-    print texto
+    #print texto
     data = texto.split(',')
-    print data
     texto = ''
+    return data
+
 
 
 def writeNumber(value):
@@ -192,12 +193,15 @@ def main():
             air_speed = str(vehicle.airspeed)
             
             #readArduinoData()
-            readDataArduino()
+            dataArduino = readDataArduino()
 
             print "Mode: %s" % mode
             print "Latitud: " + str(lat)
             print "Longitud: " + str(lon)
             print "Attitude: " + str(alt)
+            print "Sensor 1" , dataArduino[0]
+            print "Sensor 2" , dataArduino[1]
+            print "Sensor 3" , dataArduino[2]
 
             data = "[]"
 
