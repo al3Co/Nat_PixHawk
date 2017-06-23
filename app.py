@@ -103,6 +103,7 @@ def readArduinoData():
         pass
 
 def readDataArduino():
+    print "Reading Arduino ..."
     texto=''
     arduino.write(b'B')
     time.sleep(0.1)
@@ -188,7 +189,8 @@ def main():
             ground_speed = str(vehicle.groundspeed)
             air_speed = str(vehicle.airspeed)
             
-            readArduinoData()
+            #readArduinoData()
+            readDataArduino()
 
             print "Mode: %s" % mode
             print "Latitud: " + str(lat)
