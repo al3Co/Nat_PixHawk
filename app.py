@@ -98,6 +98,7 @@ def readArduinoData():
                 # serparar y guardar en vector = arduinoData
         except Exception, e:
                 print "is_open has no attribute", e
+                pass
     except Exception, e:
         print "Error reading Arduino's data:", e
 
