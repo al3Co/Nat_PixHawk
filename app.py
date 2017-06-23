@@ -199,9 +199,10 @@ def main():
             print "Latitud: " + str(lat)
             print "Longitud: " + str(lon)
             print "Attitude: " + str(alt)
-            print "Sensor 1" , dataArduino[0]
-            print "Sensor 2" , dataArduino[1]
-            print "Sensor 3" , dataArduino[2]
+            
+            print "Sensor 1:" , dataArduino[0]
+            print "Sensor 2:" , dataArduino[1]
+            print "Sensor 3:" , dataArduino[2]
 
             data = "[]"
 
