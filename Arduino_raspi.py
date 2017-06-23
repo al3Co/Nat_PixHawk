@@ -1,7 +1,7 @@
 import serial#comunicacion puerto serie
 import time #modulo time para tiempo de respuesta entre tarjetas
 
-arduino = serial.Serial('/dev/ttyACM0',baudrate=9600, timeout = 3.0)  #puerto de entrada arduino y velocidad de transmision
+arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600, timeout = 3.0)  #puerto de entrada arduino y velocidad de transmision
 
 
 texto=''
