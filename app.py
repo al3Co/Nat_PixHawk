@@ -102,6 +102,16 @@ def readArduinoData():
         print "Error reading Arduino's data:", e
         pass
 
+def readDataArduino():
+    texto=''
+    arduino.write(b'B')
+    time.sleep(0.1)
+    while arduino.inWaiting() > 0 :
+        texto += arduino.read(1) #es suma compuesta
+    print texto
+    texto = ''
+
+
 def writeNumber(value):
     bus.write_byte(address, int(value))
     return -1
