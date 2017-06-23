@@ -55,8 +55,8 @@ try:
     arduino.open()
     ser.open()
     print "Conected to:", ser.name, "and ", arduino.name
-except e:
-    print "Serial is not avalible."
+except Exception, e:
+    print "Serial is not avalible..", e
 
 # Connecting Mavproxy
 try:
@@ -67,14 +67,13 @@ try:
     print "\nConnecting to vehicle on: %s" % args.connect
     vehicle = connect(args.connect, wait_ready=True)
     vehicle = connect('127.0.0.1:14550', wait_ready=True)
-
 except Exception, e:
-   print "Error to Connect"
+   print "Error to Connect", e
 
 # BGN: GENERAL FUNCTIONS
 
 def readArduinoData():
-    print "Function to read Arduino's data ..."
+    print "Function to read Arduino's data ...", arduino.is_open
     try:
         arduino.write(b'B')
         if arduino.inWaiting() > 1:
@@ -83,12 +82,13 @@ def readArduinoData():
             command = callback.split(',')
             print command
             arduino.flush()
+        print "Arduino is open:", arduino.is_open
         if arduino.is_open:
             incomingData = arduino.readline()
             print incomingData, "Data from Arduino"
             # serparar y guardar en vector = arduinoData
     except Exception, e:
-        print "Error reading Arduino's data", e
+        print "Error reading Arduino's data:", e
 
 def writeNumber(value):
     bus.write_byte(address, int(value))
@@ -194,7 +194,7 @@ def main():
             while (status & 0x08) == 0:
                 #print bin(status)
                 status = bus.read_byte_data(baro_addr,0x00)
-                time.sleep(0.5)
+                #time.sleep(0.5)
 
             print "Reading barometer sensor data..."
             p_data = bus.read_i2c_block_data(baro_addr,0x01,3)
@@ -239,7 +239,7 @@ def main():
             data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + ',' + str(pressure+p_decimal) + ',' + str(celsius) + ',' + str(humidity) + ',' + str(temperature) + ',' + str(ground_speed) + ',' + str(co_level) + ']'
 
             ser.write(str(data) + '\n')
-            time.sleep(0.1)
+            #time.sleep(0.1)
 
             callback = ''
 
@@ -253,7 +253,7 @@ def main():
                 ser.flush()
 
     except KeyboardInterrupt:
-        GPIO.cleanup()
+        #GPIO.cleanup()
         ser.close()
         arduino.close()
         ser.close()
