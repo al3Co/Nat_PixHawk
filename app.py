@@ -81,16 +81,15 @@ except Exception, e:
 # BGN: GENERAL FUNCTIONS
 
 def readArduinoData():
-    print "Function to read Arduino's data ..."
+    #print "Function to read Arduino's data ..."
     try:
         arduino.write(b'B')
         if arduino.inWaiting() > 1:
             print "Reading data from ...", arduino.name
             callback = arduino.readline()
             command = callback.split(',')
-            print command
+            print command, "data"
             arduino.flush()
-        print "Arduino is open:", arduino.is_open
         try:
             if arduino.is_open:
                 incomingData = arduino.readline()
