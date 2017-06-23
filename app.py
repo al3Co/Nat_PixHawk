@@ -81,7 +81,7 @@ except Exception, e:
 # BGN: GENERAL FUNCTIONS
 
 def readArduinoData():
-    print "Function to read Arduino's data ...", arduino.is_open
+    print "Function to read Arduino's data ..."
     try:
         arduino.write(b'B')
         if arduino.inWaiting() > 1:
@@ -91,10 +91,13 @@ def readArduinoData():
             print command
             arduino.flush()
         print "Arduino is open:", arduino.is_open
-        if arduino.is_open:
-            incomingData = arduino.readline()
-            print incomingData, "Data from Arduino"
-            # serparar y guardar en vector = arduinoData
+        try:
+            if arduino.is_open:
+                incomingData = arduino.readline()
+                print incomingData, "Data from Arduino"
+                # serparar y guardar en vector = arduinoData
+        except Exception, e:
+                print "is_open has no attribute", e
     except Exception, e:
         print "Error reading Arduino's data:", e
 
