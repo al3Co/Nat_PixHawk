@@ -100,6 +100,7 @@ def readArduinoData():
                 pass
     except Exception, e:
         print "Error reading Arduino's data:", e
+        pass
 
 def writeNumber(value):
     bus.write_byte(address, int(value))
