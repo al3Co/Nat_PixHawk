@@ -12,7 +12,6 @@ import smbus
 import serial
 import Adafruit_DHT
 
-conectado = False
 arduinoData = []
 
 bus = smbus.SMBus(1)
@@ -51,11 +50,11 @@ sensor_args = {
 
 # Connecting telemetry module
 try:
-    global conectado
-    # CAMBIAR A DIRECCIÓN FISICA
-    arduino = serial.Serial('/dev/ttyUSB0',baudrate=9600, timeout = 3.0)
-    ser = serial.Serial('/dev/ttyUSB0', 57600, timeout=5)#cambiar por purto serial de pixhawk
-    conectado = True
+    arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600)
+    ser = serial.Serial('/dev/ttyUSB0', 57600)#cambiar por purto serial de pixhawk
+    arduino.open()
+    ser.open()
+    print "Conected to:", ser.name, "and ", arduino.name
 except e:
     print "Serial is not avalible."
 
@@ -75,11 +74,21 @@ except Exception, e:
 # BGN: GENERAL FUNCTIONS
 
 def readArduinoData():
-    global conectado
-    if conectado:
-        incomingData = arduino.readline()
-        print incomingData
-        # serparar y guardar en vector = arduinoData
+    print "Function to read Arduino's data ..."
+    try:
+        arduino.write(b'B')
+        if arduino.inWaiting() > 1:
+            print "Reading data from ...", arduino.name
+            callback = arduino.readline()
+            command = callback.split(',')
+            print command
+            arduino.flush()
+        if arduino.is_open:
+            incomingData = arduino.readline()
+            print incomingData, "Data from Arduino"
+            # serparar y guardar en vector = arduinoData
+    except Exception, e:
+        print "Error reading Arduino's data", e
 
 def writeNumber(value):
     bus.write_byte(address, int(value))
@@ -235,17 +244,18 @@ def main():
             callback = ''
 
             if ser.inWaiting() > 1:
-                print "Reading data..."
+                print "Reading data from ...", ser.name
                 callback = ser.readline()
                 command = callback.split(':')
                 print "%s:%s" % (str(command[0]), str(command[1]))
                 if str(command[0]) == 'mode':
                     set_mode(int(command[1]))
-
                 ser.flush()
 
     except KeyboardInterrupt:
         GPIO.cleanup()
+        ser.close()
+        arduino.close()
         ser.close()
 
 
