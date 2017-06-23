@@ -237,7 +237,9 @@ def main():
 
             ## Sending data ##
 
-            data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + ',' + str(pressure+p_decimal) + ',' + str(celsius) + ',' + str(humidity) + ',' + str(temperature) + ',' + str(ground_speed) + ',' + str(co_level) + ']'
+            #data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + ',' + str(pressure+p_decimal) + ',' + str(celsius) + ',' + str(humidity) + ',' + str(temperature) + ',' + str(ground_speed) + ',' + str(co_level) + ']'
+            
+            data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + ']'
 
             ser.write(str(data) + '\n')
             #time.sleep(0.1)
