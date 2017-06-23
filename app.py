@@ -185,6 +185,7 @@ def main():
 
             ## Read barometer/temp sensor ##
             # Toggle One Shot
+            """
             setting = bus.read_byte_data(baro_addr, CTRL_REG1)
             if (setting & 0x02) == 0:
                 bus.write_byte_data(baro_addr, CTRL_REG1, (setting | 0x02))
@@ -233,7 +234,7 @@ def main():
                 humidity = 0
                 temperature = 0
                 print 'Failed to get reading. Try again!'
-
+            """
 
             ## Sending data ##
 
