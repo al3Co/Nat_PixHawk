@@ -10,7 +10,11 @@ Working project
 
 ## Features
 
-- Get sensors data from Arduino and PixHawk in Raspberry
+- Getting sensors data from Arduino and PixHawk in Raspberry
 
 ## Requirements
--Python 2.7+
+- Python 2.7+
+- One Arduino device
+- Arduino software
+- Raspberry
+- PixHawk
