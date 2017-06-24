@@ -1,18 +1,18 @@
-import serial#comunicacion puerto serie
-import time #modulo time para tiempo de respuesta entre tarjetas
+import serial   # serial port communication
+import time     # time for sleep
 
-arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600, timeout = 3.0)  #puerto de entrada arduino y velocidad de transmision
+arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600, timeout = 3.0)  # Arduino's port and transmition speed
 
-
-texto=''
+incomingData=''
 
 while True:
-    arduino.write(b'B')
-    time.sleep(0.1)
+    arduino.write(b'B') # singal to consult arduino's data
+    time.sleep(0.1)     # waiting for response
     while arduino.inWaiting() > 0 :
-        texto += arduino.read(1) #es suma compuesta
-    print texto
-    texto = ''
+        incomingData += arduino.read(1)    # getting data sended by the arduino
+    data = incomingData.split(',')
+    print data
+    incomingData = ''
     time.sleep(2)
 
 arduino.close()
