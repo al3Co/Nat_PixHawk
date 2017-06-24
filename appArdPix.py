@@ -38,18 +38,22 @@ try:
     vehicle = connect(args.connect, wait_ready=True)
     vehicle = connect('127.0.0.1:14550', wait_ready=True)
 except Exception, e:
-   print "Error to Connect", e
+   print "Error connecting to Mavproxy", e
 
 # BGN: GENERAL FUNCTIONS
 
 # Reading Arduino Data
+# Arduino's code need a 'B' letter to start reading and sending data sensors
 def readDataArduino():
     try:
         text=''
+        # sending B letter to the Arduino to check the sensors
         arduino.write(b'B')
         time.sleep(0.1)
+        # getting Ardiunos data
         while arduino.inWaiting() > 0 :
-            text += arduino.read(1) #es suma compuesta
+            text += arduino.read(1)
+        # creating tuple with data readed
         data = text.split(',')
         text = ''
         return data
