@@ -9,7 +9,7 @@ except:
     a = False
 
 while True:
-    if arduino.is_open:
+    if a:
         print arduino.readline()
 
 arduino.close()
