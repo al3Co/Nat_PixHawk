@@ -12,21 +12,20 @@ import smbus
 import serial
 
 # Connecting telemetry module
+# review divices connected to the raspberry with lsusb command on terminal
 try:
-    ser = serial.Serial('/dev/ttyUSB0', 57600) #cambiar por purto serial de pixhawk
-    #ser.open()
+    ser = serial.Serial('/dev/ttyUSB0', 57600)
     print "Conected to:", ser.name
 except Exception, e:
     print "Serial is not avalible..", e
 
 # Connecting Arduino module
+# review divices connected to the raspberry with lsusb command on terminal
 try:
     arduino = serial.Serial('/dev/ttyUSB1',baudrate=9600)
-    #arduino.open()
     print "Conected to:", arduino.name
 except Exception, e:
     print "Serial is not avalible..", e
-
 
 # Connecting Mavproxy
 try:
@@ -47,10 +46,10 @@ except Exception, e:
 def readDataArduino():
     try:
         text=''
-        # sending B letter to the Arduino to check the sensors
+        # sending B letter to the arduino to check the sensors
         arduino.write(b'B')
         time.sleep(0.1)
-        # getting Ardiunos data
+        # getting ardiuno's data
         while arduino.inWaiting() > 0 :
             text += arduino.read(1)
         # creating tuple with data readed
@@ -126,21 +125,18 @@ def main():
             print "Mode: %s" % mode
             print "Latitud: " + str(lat)
             print "Longitud: " + str(lon)
-            print "Attitude: " + str(alt)
+            print "Altitude: " + str(alt)
             
             print "Sensor 1:" , dataArduino[0]
             print "Sensor 2:" , dataArduino[1]
             print "Sensor 3:" , dataArduino[2]
 
             data = "[]"
-            
             data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + str(dataArduino[0]) + str(dataArduino[1]) + str(dataArduino[2]) +']'
-
             ser.write(str(data) + '\n')
             #time.sleep(0.1)
-
+            
             callback = ''
-
             if ser.inWaiting() > 1:
                 print "Reading data from ...", ser.name
                 callback = ser.readline()
@@ -153,8 +149,7 @@ def main():
     except KeyboardInterrupt:
         ser.close()
         arduino.close()
-        ser.close()
 
 if __name__ == '__main__':
-    print "==Inicio=="
+    print "==Starting=="
     main()
