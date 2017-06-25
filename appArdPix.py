@@ -55,7 +55,7 @@ def readDataArduino():
         # getting ardiuno's data
         while arduino.inWaiting() > 0 :
             text += arduino.read(1)
-        # creating tuple with data readed
+        # creating tuple with data read
         data = text.split(',')
         text = ''
         return data
