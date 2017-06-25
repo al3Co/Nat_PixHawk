@@ -18,6 +18,7 @@ try:
     print "Conected to:", ser.name
 except Exception, e:
     print "Serial is not avalible..", e
+    sys.exit(1)
 
 # Connecting Arduino module
 # review divices connected to the raspberry with lsusb command on terminal
@@ -26,6 +27,7 @@ try:
     print "Conected to:", arduino.name
 except Exception, e:
     print "Serial is not avalible..", e
+    sys.exit(1)
 
 # Connecting Mavproxy
 try:
@@ -38,6 +40,7 @@ try:
     vehicle = connect('127.0.0.1:14550', wait_ready=True)
 except Exception, e:
    print "Error connecting to Mavproxy", e
+    sys.exit(1)
 
 # BGN: GENERAL FUNCTIONS
 
@@ -154,3 +157,4 @@ def main():
 if __name__ == '__main__':
     print "==Starting=="
     main()
+    print "==Close=="
