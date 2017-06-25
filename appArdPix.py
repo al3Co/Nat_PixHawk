@@ -81,21 +81,11 @@ def set_arm(arm):
 # SET Mode
 
 def set_mode(mode):
-    if mode == 1:
-        vehicle.mode = VehicleMode("STABILIZE")
-
-    if mode == 2:
-        vehicle.mode = VehicleMode("ALT_HOLD")
-
-    if mode == 3:
-        vehicle.mode = VehicleMode("LOITER")
-
-    if mode == 4:
-        vehicle.mode = VehicleMode("RTL")
-
-    if mode == 5:
-        vehicle.mode = VehicleMode("AUTO")
-
+    if mode == 1: vehicle.mode = VehicleMode("STABILIZE")
+    if mode == 2: vehicle.mode = VehicleMode("ALT_HOLD")
+    if mode == 3: vehicle.mode = VehicleMode("LOITER")
+    if mode == 4: vehicle.mode = VehicleMode("RTL")
+    if mode == 5: vehicle.mode = VehicleMode("AUTO")
     print "Change mode: " + str(mode)
 
 def takeoff(t):
@@ -137,6 +127,7 @@ def main():
                 data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + str(dataArduino[0]) + str(dataArduino[1]) + str(dataArduino[2]) +']'
                 ser.write(str(data) + '\n')
             except (IndexError, ValueError), e:
+                print "Elements in the list of Sensors:", len(dataArduino), "data:", dataArduino
                 print "Error", e
                 pass
             #time.sleep(0.1)
