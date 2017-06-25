@@ -122,15 +122,17 @@ def main():
                 print "Latitud: " + str(lat)
                 print "Longitud: " + str(lon)
                 print "Altitude: " + str(alt)
-                for sensor in dataArduino:
-                    print "Sensor", count, ":", sensor
-                    count += 1
+                
+                print "Sensor 1:", dataArduino[0]
+                print "Sensor 2:", dataArduino[1]
+                print "Sensor 3:", dataArduino[2]
+                
                 data = "[]"
                 data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + str(dataArduino[0]) + str(dataArduino[1]) + str(dataArduino[2]) +']'
                 ser.write(str(data) + '\n')
             except (IndexError, ValueError), e:
-                print "Elements in the list of Sensors:", len(dataArduino), "data:", dataArduino
-                print "Error", e
+                #print "Desynchronization, elements:", len(dataArduino), "data:", dataArduino
+                #print "Error", e
                 pass
             #time.sleep(0.1)
             
