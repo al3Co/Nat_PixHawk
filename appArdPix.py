@@ -124,15 +124,15 @@ def main():
             air_speed = str(vehicle.airspeed)
             
             dataArduino = readDataArduino()
-            
+            count = 1
             try:
                 print "Mode: %s" % mode
                 print "Latitud: " + str(lat)
                 print "Longitud: " + str(lon)
                 print "Altitude: " + str(alt)
-                print "Sensor 1:" , dataArduino[0]
-                print "Sensor 2:" , dataArduino[1]
-                print "Sensor 3:" , dataArduino[2]
+                for sensor in dataArduino:
+                    print "Sensor", count, ":", sensor
+                    count += 1
                 data = "[]"
                 data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + str(dataArduino[0]) + str(dataArduino[1]) + str(dataArduino[2]) +']'
                 ser.write(str(data) + '\n')
