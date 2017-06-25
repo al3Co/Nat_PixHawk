@@ -136,7 +136,8 @@ def main():
                 data = "[]"
                 data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + str(dataArduino[0]) + str(dataArduino[1]) + str(dataArduino[2]) +']'
                 ser.write(str(data) + '\n')
-            except (IndexError, ValueError):
+            except (IndexError, ValueError), e:
+                print "Error", e
                 pass
             #time.sleep(0.1)
             
