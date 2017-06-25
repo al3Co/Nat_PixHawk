@@ -12,7 +12,7 @@ void loop () {
       Serial.print(",");
       Serial.print(analogRead(1));
       Serial.print(",");
-      Serial.print(analogRead(2));
+      Serial.println(analogRead(2));
       }
   }
   delay(100);
