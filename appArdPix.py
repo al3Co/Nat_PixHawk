@@ -49,15 +49,14 @@ except Exception, e:
 def readDataArduino():
     try:
         text=''
-        # sending B letter to the arduino to check the sensors
         arduino.write(b'B')
         time.sleep(0.1)
         # getting ardiuno's data
         while arduino.inWaiting() > 0 :
             text += arduino.read(1)
-        # creating tuple with data read
         arduino.flushInput()
         arduino.flushOutput()
+        # creating tuple with data read
         data = text.split(',')
         text = ''
         return data
@@ -102,26 +101,28 @@ def main():
     try:
         while True:
             ## Vehicle data ##
+            data = []
+            data.append(vehicle.armed)
+            data.append(vehicle.mode.name)
+            data.append(vehicle.battery.level)
+            
+            data.append(vehicle.location.global_frame.lat)
+            data.append(vehicle.location.global_frame.lon)
+            data.append(vehicle.location.global_frame.alt)
 
-            lat = vehicle.location.global_frame.lat
-            lon = vehicle.location.global_frame.lon
-            alt = vehicle.location.global_frame.alt
-
-            arm = str(vehicle.armed)
-            mode = str(vehicle.mode.name)
-            batt = str(vehicle.battery.level)
-
-            vel = str(vehicle.velocity)
-            ground_speed = str(vehicle.groundspeed)
-            air_speed = str(vehicle.airspeed)
+            # vel = str(vehicle.velocity)
+            # ground_speed = str(vehicle.groundspeed)
+            # air_speed = str(vehicle.airspeed)
             
             dataArduino = readDataArduino()
-            count = 1
+            
             try:
-                data = "[]"
-                data = '[' + str(arm) + ',' + str(mode) + ',' + str(batt) + ',' + str(lat) + ',' + str(lon) + ',' + str(alt) + ',' + str(dataArduino[0]) + ',' + str(dataArduino[1]) + ',' + str(dataArduino[2]) +']'
-                ser.write(str(data) + '\n')
-                print data
+                data.append(dataArduino[0])
+                data.append(dataArduino[1])
+                data.append(dataArduino[2])
+                if len(data) == 9:
+                    ser.write(str(data) + '\n')
+                    print data
             except (IndexError, ValueError), e:
                 #print "Desynchronization, elements:", len(dataArduino), "data:", dataArduino
                 #print "Error", e
@@ -144,4 +145,4 @@ def main():
 if __name__ == '__main__':
     print "==Starting=="
     main()
-    print "==Close=="
+    print "==TheEnd=="
