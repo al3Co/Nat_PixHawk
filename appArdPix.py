@@ -50,7 +50,7 @@ def readDataArduino():
     try:
         text=''
         arduino.write(b'B')
-        time.sleep(0.1)
+        # time.sleep(0.1)
         # getting ardiuno's data
         while arduino.inWaiting() > 0 :
             text += arduino.read(1)
